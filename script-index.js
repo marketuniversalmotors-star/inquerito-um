@@ -1,4 +1,4 @@
-const urlGoogleScript = 'https://script.google.com/macros/s/AKfycbwDTn6WLDk7vOIVTTQ8NK2XCzofFWL_WdmT1lL92sdkpDrEf_E2vhNKFdnfgtkW-vTv/exec';
+const urlGoogleScript = 'https://script.google.com/macros/s/AKfycbz-KotxTxPs_lZOYBPU27kATinLz4YI8omrKQwWlxN2vPGqiRBjF1aDU0AJQ_V3VyiT/exec';
 
 function submitRating(score) {
     if (score <= 3) {
@@ -9,7 +9,7 @@ function submitRating(score) {
         const formData = new FormData();
         formData.append('score', score);
         
-        // Envia para o Excel e avança
+        // Envia para o Excel e avança para o agradecimento
         fetch(urlGoogleScript, { method: 'POST', body: formData })
         .then(() => window.location.href = 'agradecimento.html')
         .catch(err => console.error(err));

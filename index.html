@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inquérito de Satisfação - Universal Motors</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="survey-card">
+        <div class="header">
+            <!-- O logotipo que já se encontra na pasta -->
+            <img src="logo.jpg" alt="Universal Motors Logo" class="logo">
+        </div>
+
+        <div id="survey-section">
+            <h1>Como classifica o nosso serviço?</h1>
+            <div class="rating-container">
+                <button class="rating-btn n1" onclick="submitRating(1)">1</button>
+                <button class="rating-btn n2" onclick="submitRating(2)">2</button>
+                <button class="rating-btn n3" onclick="submitRating(3)">3</button>
+                <button class="rating-btn n4" onclick="submitRating(4)">4</button>
+                <button class="rating-btn n5" onclick="submitRating(5)">5</button>
+            </div>
+        </div>
+        
+        <div id="feedback-message">
+            <div id="feedback-icon">✨</div>
+            <div id="feedback-text">
+                <strong class="feedback-title">Obrigado pela sua avaliação!</strong>
+                A sua opinião é fundamental para continuarmos a entregar as melhores soluções industriais.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function submitRating(score) {
+            console.log("Classificação registada: " + score);
+            
+            // Altera o ícone consoante a nota
+            const iconMap = {
+                1: "😟", 2: "😕", 3: "😐", 4: "🙂", 5: "🤩"
+            };
+            document.getElementById('feedback-icon').innerText = iconMap[score];
+
+            // Oculta inquérito e revela agradecimento
+            document.getElementById('survey-section').style.display = 'none';
+            document.getElementById('feedback-message').style.display = 'block';
+        }
+    </script>
+
+</body>
+</html>

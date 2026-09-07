@@ -1,11 +1,22 @@
 const urlGoogleScript = 'https://script.google.com/macros/s/AKfycbz-KotxTxPs_lZOYBPU27kATinLz4YI8omrKQwWlxN2vPGqiRBjF1aDU0AJQ_V3VyiT/exec';
 
 function submitRating(score) {
-    // Se o cliente clicar em 1, 2 ou 3, redireciona para o inquérito detalhado
     if (score <= 3) {
-        window.location.href = 'inquerito.html?score=' + score;
+        // Gera um token único para rastrear esta resposta
+        const token = 'tok_' + Date.now() + '_' + Math.random().toString(36).substring(2, 9);
+        
+        // Envia o voto IMEDIATAMENTE para o Excel em segundo plano (caso o cliente desista a meio)
+        const formData = new FormData();
+        formData.append('score', score);
+        formData.append('token', token);
+        
+        fetch(urlGoogleScript, { method: 'POST', body: formData })
+        .catch(err => console.error(err));
+
+        // Redireciona para o inquérito levando o score e o token
+        window.location.href = `inquerito.html?score=${score}&token=${token}`;
     } else {
-        // Se clicar em 4 ou 5, regista diretamente no Excel e vai para o agradecimento
+        // Notas 4 e 5 continuam a ir direto ao Excel e agradecimento
         document.getElementById('survey-section').style.display = 'none';
         document.getElementById('loading-msg').style.display = 'block';
         

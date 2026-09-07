@@ -1,5 +1,5 @@
 const form = document.getElementById('surveyForm');
-const urlGoogleScript = 'https://script.google.com/macros/s/AKfycbwDTn6WLDk7vOIVTTQ8NK2XCzofFWL_WdmT1lL92sdkpDrEf_E2vhNKFdnfgtkW-vTv/exec';
+const urlGoogleScript = 'https://script.google.com/macros/s/AKfycbz-KotxTxPs_lZOYBPU27kATinLz4YI8omrKQwWlxN2vPGqiRBjF1aDU0AJQ_V3VyiT/exec';
 
 // Apanha o score (4 ou 5) que veio da página anterior pelo URL
 const urlParams = new URLSearchParams(window.location.search);

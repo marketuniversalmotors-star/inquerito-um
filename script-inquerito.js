@@ -5,9 +5,20 @@ const urlParams = new URLSearchParams(window.location.search);
 const scoreDado = urlParams.get('score');
 const tokenDado = urlParams.get('token');
 
+let formSubmetido = false;
+
 if (form) {
     form.addEventListener('submit', e => {
         e.preventDefault(); 
+        
+        const nomeInput = document.getElementById('nome_empresa');
+        if (!nomeInput || !nomeInput.value.trim()) {
+            alert('Por favor, preencha o nome da empresa ou cliente.');
+            nomeInput.focus();
+            return;
+        }
+
+        formSubmetido = true; 
         
         const btn = form.querySelector('.submit-btn');
         btn.innerText = "A enviar..."; 
@@ -20,6 +31,7 @@ if (form) {
         if (tokenDado) {
             formData.append('token', tokenDado);
         }
+        formData.append('tipo', 'geral'); // Garante a atualização na aba "Análise geral"
         
         fetch(urlGoogleScript, { 
             method: 'POST', 
@@ -31,6 +43,18 @@ if (form) {
         .catch(error => {
             console.error('Erro:', error);
             btn.innerText = "Erro ao enviar. Tente novamente.";
+            formSubmetido = false;
         });
     });
 }
+
+window.addEventListener('beforeunload', () => {
+    if (!formSubmetido && tokenDado) {
+        const dadosAbandono = new FormData();
+        dadosAbandono.append('action', 'delete');
+        dadosAbandono.append('token', tokenDado);
+        dadosAbandono.append('tipo', 'geral');
+        
+        navigator.sendBeacon(urlGoogleScript, dadosAbandono);
+    }
+});
